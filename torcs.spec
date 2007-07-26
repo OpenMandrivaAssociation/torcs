@@ -2,7 +2,7 @@
 %define	oname	TORCS
 %define	libname	%mklibname %{name}
 %define	version	1.3.0
-%define	release	3
+%define	release	4
 %define	Summary	The Open Racing Car Simulator
 
 Name:		%{name}
@@ -16,8 +16,6 @@ Source1:	%{oname}-%{version}-src-robots-base.tar.bz2
 Source2:	%{oname}-%{version}-src-robots-berniw.tar.bz2
 Source3:	%{oname}-%{version}-src-robots-bt.tar.bz2
 Source4:	%{oname}-%{version}-src-robots-olethros.tar.bz2
-#Patch0:		torcs-1.2.4-extraqualif.patch.bz2
-#Patch1:		torcs-1.2.4-track_cpp.patch.bz2
 URL:		http://torcs.sourceforge.net/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Provides:	%{oname}
@@ -71,8 +69,6 @@ by Christos Dimitrakakis <dimitrak@idiap.ch>
 
 %prep
 %setup -q -b1 -b2 -b3 -b4
-#%patch0 -p1
-#%patch1 -p0
 
 %build
 %configure	--bindir=%{_gamesbindir}
@@ -82,16 +78,6 @@ by Christos Dimitrakakis <dimitrak@idiap.ch>
 %{__rm} -rf $RPM_BUILD_ROOT
 %{makeinstall_std}
 
-%{__install} -d $RPM_BUILD_ROOT%{_menudir}
-%{__cat} <<EOF >$RPM_BUILD_ROOT%{_menudir}/%{name}
-?package(%{name}):command="soundwrapper %{_gamesbindir}/%{name}" \
-		icon=%{name}.png \
-		needs="x11" \
-		section="More Applications/Games/Arcade" \
-		title="%{oname}"\
-		longtitle="%{Summary}"\
-		xdg="true"
-EOF
 
 mkdir $RPM_BUILD_ROOT%{_datadir}/applications
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
@@ -104,7 +90,7 @@ Icon=%{name}
 Terminal=false
 Type=Application
 StartupNotify=false
-Categories=Game;ArcadeGame;X-MandrivaLinux-MoreApplications-Games-Arcade;
+Categories=Game;ArcadeGame;
 EOF
 
 %{__install} -d $RPM_BUILD_ROOT{%{_miconsdir},%{_liconsdir}}
@@ -133,7 +119,6 @@ convert -size 48x48 icon.png $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
 %{_miconsdir}/%{name}.png
-%{_menudir}/%{name}
 %{_libdir}/%{name}
 
 %files robots-base
