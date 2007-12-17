@@ -17,7 +17,6 @@ Source2:	%{oname}-%{version}-src-robots-berniw.tar.bz2
 Source3:	%{oname}-%{version}-src-robots-bt.tar.bz2
 Source4:	%{oname}-%{version}-src-robots-olethros.tar.bz2
 URL:		http://torcs.sourceforge.net/
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Provides:	%{oname}
 Requires:	%{name}-data = %{version} %{name}-robots-base
 Requires:	%{name}-data-cars-extra %{name}-robots-berniw %{name}-robots-bt %{name}-robots-olethros
