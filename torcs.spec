@@ -51,7 +51,7 @@ by Bernhard Wymann <berniw@bluewin.ch>
 %package	robots-bt
 Group:		Games/Arcade
 Requires:	%{name} >= %{version}
-Summary:	bt robots for %{name}
+Summary:	Bt robots for %{name}
 Provides:	%{name}-robots
 
 %description	robots-bt
