@@ -1,8 +1,8 @@
 %define	name	torcs
 %define	oname	TORCS
 %define	libname	%mklibname %{name}
-%define	version	1.3.0
-%define	release	4
+%define	version	1.3.1
+%define	release	1
 %define	Summary	The Open Racing Car Simulator
 
 Name:		%{name}
@@ -13,9 +13,14 @@ License:	GPL
 Group:		Games/Arcade
 Source0:	%{oname}-%{version}-src.tar.bz2
 Source1:	%{oname}-%{version}-src-robots-base.tar.bz2
-Source2:	%{oname}-%{version}-src-robots-berniw.tar.bz2
-Source3:	%{oname}-%{version}-src-robots-bt.tar.bz2
-Source4:	%{oname}-%{version}-src-robots-olethros.tar.bz2
+Source2:	%{oname}-%{version}-data-cars-Patwo-Design.tar.bz2
+Source3:	%{oname}-%{version}-data-cars-kcendra-sport.tar.bz2  
+Source4:	%{oname}-%{version}-data-cars-extra.tar.bz2
+Source5:	%{oname}-%{version}-data-tracks-dirt.tar.bz2
+Source7:	%{oname}-%{version}-data-cars-kcendra-gt.tar.bz2 
+Source8:	%{oname}-%{version}-data-tracks-oval.tar.bz2
+Source9:	%{oname}-%{version}-data-cars-kcendra-roadsters.tar.bz2
+Source10:	%{oname}-%{version}-data-tracks-road.tar.bz2
 URL:		http://torcs.sourceforge.net/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Provides:	%{oname}
@@ -72,7 +77,7 @@ by Christos Dimitrakakis <dimitrak@idiap.ch>
 
 %build
 %configure	--bindir=%{_gamesbindir}
-%make || %make
+%make
 
 %install
 %{__rm} -rf $RPM_BUILD_ROOT
