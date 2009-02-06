@@ -26,8 +26,18 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Provides:	%{oname}
 Requires:	%{name}-data = %{version} %{name}-robots-base
 Requires:	%{name}-data-cars-extra %{name}-robots-berniw %{name}-robots-bt %{name}-robots-olethros
-BuildRequires:	imagemagick mesaglu-devel SDL-devel zlib-devel png-devel
+BuildRequires:	imagemagick mesaglu-devel SDL-devel zlib-devel png-devel GL-devel
 BuildRequires:	mesa-common-devel plib-devel freealut-devel openal-devel libxrandr-devel
+BuildRequires:	fdupes
+BuildRequires:	freealut-devel
+BuildRequires:	gcc-c++
+BuildRequires:	libdrm-devel
+BuildRequires:	libpng-devel
+BuildRequires:	GL-devel
+BuildRequires:	openal-devel
+BuildRequires:	plib-devel
+BuildRequires:	plib
+BuildRequires:	SDL-devel
 Provides:	%{libname}
 Obsoletes:	%{libname}
 
@@ -73,19 +83,26 @@ bt robots for %{oname}
 by Christos Dimitrakakis <dimitrak@idiap.ch>
 
 %prep
-%setup -q -b1 -b2 -b3 -b4
+%setup -q
+for i in $RPM_SOURCE_DIR/TORCS-%{version}-src-robots*.bz2; do
+	%__tar xjf $i -C ..
+done
 
 %build
-%configure	--bindir=%{_gamesbindir}
-%make
+export CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
+export CXXFLAGS="$CFLAGS"
+#autoconf 
+./configure \
+	--prefix=%{_prefix} \
+	--libdir=%{_libdir} \
+	--x-libraries=%{_xorglibdir} \
+	--bindir=%{_gamesbindir} \
+	--datadir=%{_gamesdatadir}
+%__make 
 
-%install
-%{__rm} -rf $RPM_BUILD_ROOT
-%{makeinstall_std}
 
-
-mkdir $RPM_BUILD_ROOT%{_datadir}/applications
-cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
+mkdir %{buildroot}%{_datadir}/applications
+cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=%{oname}
 Comment=%{Summary}
@@ -97,10 +114,10 @@ StartupNotify=false
 Categories=Game;ArcadeGame;
 EOF
 
-%{__install} -d $RPM_BUILD_ROOT{%{_miconsdir},%{_liconsdir}}
-convert -size 16x16 icon.png $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
-%{__install} icon.png $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
-convert -size 48x48 icon.png $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
+%{__install} -d %{buildroot}{%{_miconsdir},%{_liconsdir}}
+convert -size 16x16 icon.png %{buildroot}%{_miconsdir}/%{name}.png
+%{__install} icon.png %{buildroot}%{_iconsdir}/%{name}.png
+convert -size 48x48 icon.png %{buildroot}%{_liconsdir}/%{name}.png
 
 %if %mdkversion < 200900
 %post
@@ -113,7 +130,7 @@ convert -size 48x48 icon.png $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 %endif
 
 %clean
-%{__rm} -rf $RPM_BUILD_ROOT
+%{__rm} -rf %{buildroot}
 
 %files
 %defattr(-,root,root,755)
