@@ -17,8 +17,8 @@ Source1:	%{oname}-%{version}-src-robots-base.tar.bz2
 URL:		http://torcs.sourceforge.net/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Provides:	%{oname}
-Requires:	%{name}-data = %{version} %{name}-robots-base
-Requires:	%{name}-data-cars-extra %{name}-robots-berniw %{name}-robots-bt %{name}-robots-olethros
+Requires:	%{name}-data = %{version}
+Requires:	%{name}-data-cars-extra 
 BuildRequires:	ImageMagick mesaglu-devel SDL-devel zlib-devel png-devel
 BuildRequires:	mesa-common-devel plib-devel freealut-devel openal-devel libxrandr-devel
 Provides:	%{libname}
