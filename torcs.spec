@@ -3,7 +3,7 @@
 %define	oname	TORCS
 %define	libname	%mklibname %{name}
 %define	version	1.3.1
-%define	release	2
+%define	release	3
 %define	Summary	The Open Racing Car Simulator
 
 Name:		%{name}
@@ -14,11 +14,16 @@ License:	GPL
 Group:		Games/Arcade
 Source0:	%{oname}-%{version}-src.tar.bz2
 Source1:	%{oname}-%{version}-src-robots-base.tar.bz2
+Source2:	%{oname}-1.3.0-src-robots-berniw.tar.bz2
+Source3:	%{oname}-1.3.0-src-robots-bt.tar.bz2
+Source4:	%{oname}-1.3.0-src-robots-olethros.tar.bz2
+
 URL:		http://torcs.sourceforge.net/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Provides:	%{oname}
 Requires:	%{name}-data = %{version}
 Requires:	%{name}-data-cars-extra 
+Requires:	%{name}-robots-berniw %{name}-robots-bt %{name}-robots-olethros
 BuildRequires:	ImageMagick mesaglu-devel SDL-devel zlib-devel png-devel
 BuildRequires:	mesa-common-devel plib-devel freealut-devel openal-devel libxrandr-devel
 Provides:	%{libname}
@@ -35,10 +40,38 @@ Provides:	%{name}-robots
 
 %description	robots-base
 Base robots for %{oname}
+%package	robots-berniw
+Group:		Games/Arcade
+Requires:	%{name} >= %{version}
+Summary:	Berniw robots for %{name}
+Provides:	%{name}-robots
+
+%description	robots-berniw
+Berniw robots for %{oname}
+by Bernhard Wymann <berniw@bluewin.ch>
+
+%package	robots-bt
+Group:		Games/Arcade
+Requires:	%{name} >= %{version}
+Summary:	Bt robots for %{name}
+Provides:	%{name}-robots
+
+%description	robots-bt
+bt robots for %{oname}
+
+%package	robots-olethros
+Group:		Games/Arcade
+Requires:	%{name} >= %{version}
+Summary:	Olethros robots for %{name}
+Provides:	%{name}-robots
+
+%description	robots-olethros
+bt robots for %{oname}
+by Christos Dimitrakakis <dimitrak@idiap.ch>
 
 
 %prep
-%setup -q
+%setup -q -b1 -b2 -b3 -b4
 
 %build
 ./configure	--bindir=%{_gamesbindir} \
@@ -95,4 +128,18 @@ convert -size 48x48 icon.png $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 
 %files robots-base
 %defattr(-,root,root,755)
+%dir %{_libdir}/%{name}
+%{_libdir}/%{name}/*
+%{_gamesdatadir}/%{name}/drivers/*
 
+%files robots-berniw
+%defattr(-,root,root,755)
+%{_gamesdatadir}/%{name}/drivers/berniw*
+
+%files robots-bt
+%defattr(-,root,root,755)
+%{_gamesdatadir}/%{name}/drivers/bt
+
+%files robots-olethros
+%defattr(-,root,root,755)
+%{_gamesdatadir}/%{name}/drivers/olethros
