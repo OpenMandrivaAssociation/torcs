@@ -3,7 +3,7 @@
 %define	oname	TORCS
 %define	libname	%mklibname %{name}
 %define	version	1.3.1
-%define	release	4
+%define	release	5
 %define	Summary	The Open Racing Car Simulator
 
 Name:		%{name}
@@ -90,7 +90,7 @@ cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=%{oname}
 Comment=%{Summary}
-Exec=soundwrapper %{_gamesbindir}/%{name}
+Exec=%{_gamesbindir}/%{name}
 Icon=%{name}
 Terminal=false
 Type=Application
