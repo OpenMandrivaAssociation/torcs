@@ -24,7 +24,7 @@ Provides:	%{oname}
 Requires:	%{name}-data = %{version}
 Requires:	%{name}-data-cars-extra 
 Requires:	%{name}-robots-berniw %{name}-robots-bt %{name}-robots-olethros
-BuildRequires:	imagemagick mesaglu-devel SDL-devel zlib-devel png-devel
+BuildRequires:	imagemagick mesaglu-devel SDL-devel zlib-devel png-devel libvorbis-devel
 BuildRequires:	mesa-common-devel plib-devel freealut-devel openal-devel libxrandr-devel
 Provides:	%{libname}
 Obsoletes:	%{libname}
