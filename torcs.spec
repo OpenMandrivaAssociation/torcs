@@ -130,7 +130,7 @@ convert -size 48x48 icon.png $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 %defattr(-,root,root,755)
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/*
-%{_gamesdatadir}/%{name}/drivers/base*
+# %{_gamesdatadir}/%{name}/drivers/base*
 
 %files robots-berniw
 %defattr(-,root,root,755)
