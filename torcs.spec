@@ -120,7 +120,6 @@ convert -size 48x48 icon.png $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 %{_gamesdatadir}/%{name}/[!d]*
 %{_datadir}/applications/mandriva-%{name}.desktop
 %dir %{_gamesdatadir}/%{name}/drivers
-%{_gamesdatadir}/%{name}/drivers/human
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
 %{_miconsdir}/%{name}.png
@@ -128,9 +127,13 @@ convert -size 48x48 icon.png $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 
 %files robots-base
 %defattr(-,root,root,755)
-%dir %{_libdir}/%{name}
-%{_libdir}/%{name}/*
-# %{_gamesdatadir}/%{name}/drivers/base*
+%{_gamesdatadir}/%{name}/drivers/damned*
+%{_gamesdatadir}/%{name}/drivers/human/*              
+%{_gamesdatadir}/%{name}/drivers/inferno/*
+%{_gamesdatadir}/%{name}/drivers/inferno2/*
+%{_gamesdatadir}/%{name}/drivers/lliaw/*
+%{_gamesdatadir}/%{name}/drivers/sparkle/*
+%{_gamesdatadir}/%{name}/drivers/tita/*
 
 %files robots-berniw
 %defattr(-,root,root,755)
