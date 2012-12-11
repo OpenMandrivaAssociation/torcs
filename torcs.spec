@@ -8,9 +8,9 @@
 
 Name:		%{name}
 Version:	%{version}
-Release:	%mkrel %{release}
+Release:%{release}
 Summary:	%{Summary}
-License:	GPL
+License:	GPLv2
 Group:		Games/Arcade
 Source0:	%{oname}-%{version}-src.tar.bz2
 Source1:	%{oname}-%{version}-src-robots-base.tar.bz2
@@ -19,13 +19,29 @@ Source3:	%{oname}-1.3.0-src-robots-bt.tar.bz2
 Source4:	%{oname}-1.3.0-src-robots-olethros.tar.bz2
 
 URL:		http://torcs.sourceforge.net/
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Provides:	%{oname}
 Requires:	%{name}-data = %{version}
 Requires:	%{name}-data-cars-extra 
 Requires:	%{name}-robots-berniw %{name}-robots-bt %{name}-robots-olethros
-BuildRequires:	imagemagick mesaglu-devel SDL-devel zlib-devel png-devel libvorbis-devel
-BuildRequires:	mesa-common-devel plib-devel freealut-devel openal-devel libxrandr-devel
+
+BuildRequires:	imagemagick 
+BuildRequires:	pkgconfig(glu) 
+BuildRequires:	pkgconfig(sdl) 
+BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(libpng) 
+BuildRequires:	pkgconfig(vorbis)
+BuildRequires:	mesa-common-devel 
+BuildRequires:	plib-devel 
+BuildRequires:	pkgconfig(freealut) 
+BuildRequires:	pkgconfig(openal) 
+BuildRequires:	pkgconfig(xrandr)
+BuildRequires:	pkgconfig(ice)
+BuildRequires:	libstdc++-devel
+BuildRequires:	pkgconfig(sm)
+BuildRequires:	pkgconfig(xt)
+BuildRequires:	pkgconfig(xmu)
+
+
 Provides:	%{libname}
 Obsoletes:	%{libname}
 
@@ -74,15 +90,16 @@ by Christos Dimitrakakis <dimitrak@idiap.ch>
 %setup -q -b1 -b2 -b3 -b4
 
 %build
+LDFLAGS="%{ldflags} -lstdc++"
 ./configure	--bindir=%{_gamesbindir} \
 	--prefix=%{_prefix} \
 	--libdir=%{_libdir} \
 	--x-libraries=%{_xorglibdir}
-
+	
+#avoid paralel build
 make
 
 %install
-%{__rm} -rf $RPM_BUILD_ROOT
 %{makeinstall_std}
 
 mkdir $RPM_BUILD_ROOT%{_datadir}/applications
@@ -103,18 +120,12 @@ convert -size 16x16 icon.png $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
 %{__install} icon.png $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
 convert -size 48x48 icon.png $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 
-%post
-%{update_menus}
- 
-%postun
-%{clean_menus} 
-
-%clean
-%{__rm} -rf $RPM_BUILD_ROOT
+# fix rpmlint E, to be seen for W
+chmod -R 755 $RPM_BUILD_ROOT%{_gamesdatadir}/%{name}
+chmod -R 755 $RPM_BUILD_ROOT%{_libdir}/%{name}
 
 %files
-%defattr(-,root,root,755)
-# %doc INSTALL.linux README.linux
+%doc COPYING README 
 %{_gamesbindir}/*
 %dir %{_gamesdatadir}/%{name}
 %{_gamesdatadir}/%{name}/[!d]*
@@ -126,7 +137,7 @@ convert -size 48x48 icon.png $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 %{_libdir}/%{name}
 
 %files robots-base
-%defattr(-,root,root,755)
+%doc COPYING README 
 %{_gamesdatadir}/%{name}/drivers/damned*
 %{_gamesdatadir}/%{name}/drivers/human/*              
 %{_gamesdatadir}/%{name}/drivers/inferno/*
@@ -136,13 +147,15 @@ convert -size 48x48 icon.png $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 %{_gamesdatadir}/%{name}/drivers/tita/*
 
 %files robots-berniw
-%defattr(-,root,root,755)
+%doc COPYING README 
 %{_gamesdatadir}/%{name}/drivers/berniw*
 
 %files robots-bt
-%defattr(-,root,root,755)
+%doc COPYING README 
 %{_gamesdatadir}/%{name}/drivers/bt
 
 %files robots-olethros
-%defattr(-,root,root,755)
+%doc COPYING README 
 %{_gamesdatadir}/%{name}/drivers/olethros
+
+
