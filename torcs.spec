@@ -3,7 +3,7 @@
 %define	oname	TORCS
 %define	libname	%mklibname %{name}
 %define	version	1.3.5
-%define	release	1
+%define	release	1.1
 %define	Summary	The Open Racing Car Simulator
 
 Name:		%{name}
