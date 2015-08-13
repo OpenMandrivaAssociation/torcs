@@ -5,6 +5,7 @@
 %define	version	1.3.5
 %define	release	1.1
 %define	Summary	The Open Racing Car Simulator
+%define _disable_ld_no_undefined 1
 
 Name:		%{name}
 Version:	%{version}
@@ -90,11 +91,10 @@ by Christos Dimitrakakis <dimitrak@idiap.ch>
 %setup -q -b1 -b2 -b3 -b4
 
 %build
-LDFLAGS="%{ldflags} -lstdc++"
+export LDFLAGS="%{ldflags} -lstdc++ -Wl,--no-as-needed"
 ./configure	--bindir=%{_gamesbindir} \
 	--prefix=%{_prefix} \
-	--libdir=%{_libdir} \
-	--x-libraries=%{_xorglibdir}
+	--libdir=%{_libdir}
 	
 #avoid paralel build
 make
