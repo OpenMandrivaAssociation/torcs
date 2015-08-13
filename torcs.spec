@@ -2,8 +2,8 @@
 %define	name	torcs
 %define	oname	TORCS
 %define	libname	%mklibname %{name}
-%define	version	1.3.5
-%define release	2
+%define	version	1.3.6
+%define release	1
 %define	Summary	The Open Racing Car Simulator
 %define _disable_ld_no_undefined 1
 
@@ -13,8 +13,8 @@ Release:%{release}
 Summary:	%{Summary}
 License:	GPLv2
 Group:		Games/Arcade
-Source0:	%{oname}-%{version}-src.tgz
-Source1:	%{oname}-%{version}-src-robots-base.tgz
+Source0:	%{oname}-%{version}-src.tar.xz
+Source1:	%{oname}-%{version}-src-robots-base.tar.xz
 Source2:	%{oname}-1.3.0-src-robots-berniw.tar.bz2
 Source3:	%{oname}-1.3.0-src-robots-bt.tar.bz2
 Source4:	%{oname}-1.3.0-src-robots-olethros.tar.bz2
