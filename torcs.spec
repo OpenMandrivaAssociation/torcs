@@ -19,7 +19,7 @@ Source2:	%{oname}-1.3.0-src-robots-berniw.tar.bz2
 Source3:	%{oname}-1.3.0-src-robots-bt.tar.bz2
 Source4:	%{oname}-1.3.0-src-robots-olethros.tar.bz2
 
-URL:		http://torcs.sourceforge.net/
+URL:		https://torcs.sourceforge.net/
 Provides:	%{oname}
 Requires:	%{name}-data = %{version}
 Requires:	%{name}-data-cars-extra 
