@@ -25,6 +25,11 @@ Requires:	%{name}-data = %{version}
 Requires:	%{name}-data-cars-extra 
 Requires:	%{name}-robots-berniw %{name}-robots-bt %{name}-robots-olethros
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	imagemagick 
 BuildRequires:	pkgconfig(glu) 
 BuildRequires:	pkgconfig(sdl) 
